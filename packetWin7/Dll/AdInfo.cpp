@@ -2354,7 +2354,7 @@ static BOOLEAN PacketAddFakeNdisWanAdapter()
 		}
 	}
 
-	TmpAdInfo = GlobalAllocPtr(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(ADAPTER_INFO));
+	TmpAdInfo = (PADAPTER_INFO)GlobalAllocPtr(GMEM_MOVEABLE | GMEM_ZEROINIT, sizeof(ADAPTER_INFO));
 	if (TmpAdInfo == NULL) 
 	{
 		TRACE_PRINT("PacketAddFakeNdisWanAdapter: GlobalAlloc Failed allocating memory for the AdInfo structure");

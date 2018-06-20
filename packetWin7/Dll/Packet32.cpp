@@ -3117,7 +3117,7 @@ BOOLEAN PacketReceivePacket(LPADAPTER AdapterObject,LPPACKET lpPacket,BOOLEAN Sy
 	
 	if (AdapterObject->Flags == INFO_FLAG_NDISWAN_ADAPTER)
 	{
-		lpPacket->ulBytesReceived = WanPacketReceivePacket(AdapterObject->pWanAdapter, lpPacket->Buffer, lpPacket->Length);
+		lpPacket->ulBytesReceived = WanPacketReceivePacket(AdapterObject->pWanAdapter, (PUCHAR)lpPacket->Buffer, lpPacket->Length);
 
 		TRACE_EXIT();
 		return TRUE;
@@ -4263,7 +4263,7 @@ BOOLEAN PacketGetStats(LPADAPTER AdapterObject,struct bpf_stat *s)
 #ifdef HAVE_WANPACKET_API	
 	if ( AdapterObject->Flags == INFO_FLAG_NDISWAN_ADAPTER)
 	{
-			Res = WanPacketGetStats(AdapterObject->pWanAdapter, (PVOID)&tmpstat);
+			Res = WanPacketGetStats(AdapterObject->pWanAdapter, (struct bpf_stat*)&tmpstat);
 
 			// Copy only the first two values retrieved from the driver
 			s->bs_recv = tmpstat.bs_recv;
@@ -4348,7 +4348,7 @@ BOOLEAN PacketGetStatsEx(LPADAPTER AdapterObject,struct bpf_stat *s)
 #ifdef HAVE_WANPACKET_API
 	if(AdapterObject->Flags == INFO_FLAG_NDISWAN_ADAPTER)
 	{
-		Res = WanPacketGetStats(AdapterObject->pWanAdapter, (PVOID)&tmpstat);
+		Res = WanPacketGetStats(AdapterObject->pWanAdapter, (struct bpf_stat*)&tmpstat);
 
 		TRACE_EXIT();
 		return Res;
